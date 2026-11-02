@@ -25,21 +25,22 @@ class PrecacheCacheKeyPlugin implements WorkboxPlugin {
     this._precacheController = precacheController;
   }
 
-  cacheKeyWillBeUsed: WorkboxPlugin['cacheKeyWillBeUsed'] = async ({
-    request,
-    params,
-  }: WorkboxPluginCallbackParam['cacheKeyWillBeUsed']) => {
-    // Params is type any, can't change right now.
-    /* eslint-disable */
-    const cacheKey =
-      params?.cacheKey ||
-      this._precacheController.getCacheKeyForURL(request.url);
-    /* eslint-enable */
+  cacheKeyWillBeUsed: NonNullable<WorkboxPlugin['cacheKeyWillBeUsed']> =
+    async ({
+      request,
+      params,
+    }: WorkboxPluginCallbackParam['cacheKeyWillBeUsed']) => {
+      // Params is type any, can't change right now.
+      /* eslint-disable */
+      const cacheKey =
+        params?.cacheKey ||
+        this._precacheController.getCacheKeyForURL(request.url);
+      /* eslint-enable */
 
-    return cacheKey
-      ? new Request(cacheKey, {headers: request.headers})
-      : request;
-  };
+      return cacheKey
+        ? new Request(cacheKey, {headers: request.headers})
+        : request;
+    };
 }
 
 export {PrecacheCacheKeyPlugin};

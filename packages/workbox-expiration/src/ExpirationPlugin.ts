@@ -142,12 +142,9 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cachedResponseWillBeUsed: WorkboxPlugin['cachedResponseWillBeUsed'] = async ({
-    event,
-    request,
-    cacheName,
-    cachedResponse,
-  }) => {
+  cachedResponseWillBeUsed: NonNullable<
+    WorkboxPlugin['cachedResponseWillBeUsed']
+  > = async ({event, request, cacheName, cachedResponse}) => {
     if (!cachedResponse) {
       return null;
     }
@@ -246,7 +243,7 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cacheDidUpdate: WorkboxPlugin['cacheDidUpdate'] = async ({
+  cacheDidUpdate: NonNullable<WorkboxPlugin['cacheDidUpdate']> = async ({
     cacheName,
     request,
   }) => {

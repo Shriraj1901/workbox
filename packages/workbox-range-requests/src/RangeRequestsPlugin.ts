@@ -31,10 +31,9 @@ class RangeRequestsPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cachedResponseWillBeUsed: WorkboxPlugin['cachedResponseWillBeUsed'] = async ({
-    request,
-    cachedResponse,
-  }) => {
+  cachedResponseWillBeUsed: NonNullable<
+    WorkboxPlugin['cachedResponseWillBeUsed']
+  > = async ({request, cachedResponse}) => {
     // Only return a sliced response if there's something valid in the cache,
     // and there's a Range: header in the request.
     if (cachedResponse && request.headers.has('range')) {
